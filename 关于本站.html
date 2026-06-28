@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于本站</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg: #faf8f5;
+      --bg-warm: #f5f0ea;
+      --bg-card: #ffffff;
+      --ink: #2c2825;
+      --ink-secondary: #5a534c;
+      --muted: #9a928a;
+      --rule: #e8e2da;
+      --rule-strong: #d4cdc4;
+      --accent: #c2553a;
+      --accent-soft: #e8d4cf;
+      --accent-deep: #a0422e;
+      --teal: #3a8c7c;
+      --teal-soft: #d4eae5;
+      --slate: #4a6670;
+      --slate-soft: #dde8ec;
+      --gold: #b8860b;
+      --gold-soft: #f0e6cc;
+      --code-bg: #2c2825;
+      --code-ink: #e0dbd5;
+      --code-muted: #7a746c;
+      --code-keyword: #c2553a;
+      --code-string: #3a8c7c;
+      --code-comment: #7a746c;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(44,40,37,0.06);
+      --shadow-md: 0 4px 16px rgba(44,40,37,0.08);
+      --shadow-lg: 0 8px 32px rgba(44,40,37,0.1);
+      --shadow-card: 0 1px 0 var(--rule), var(--shadow-md);
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: var(--accent-soft); color: var(--accent-deep); }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(0);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+    }
+    .navbar.hidden {
+      transform: translateY(-100%);
+      box-shadow: none;
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.6rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .navbar-link {
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      transition: all var(--transition);
+      white-space: nowrap;
+      position: relative;
+    }
+    .navbar-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: var(--accent-soft);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+    .navbar-link:hover {
+      color: var(--accent);
+    }
+    .navbar-link:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .navbar-link.active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .navbar-link.active::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hero {
+      position: relative;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(194,85,58,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(58,140,124,0.04) 0%, transparent 50%),
+        var(--bg);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c2553a' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif SC', 'STSong', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      position: relative;
+      letter-spacing: 0.08em;
+    }
+
+    .page-layout {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-card);
+      scroll-margin-top: 4.5rem;
+      transition: box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--teal), var(--gold));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .section:hover::before { opacity: 1; }
+    .section:hover { box-shadow: 0 1px 0 var(--rule-strong), var(--shadow-lg); }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    h3 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 1.8rem 0 0.6rem;
+      padding-left: 0.9rem;
+      border-left: 3px solid var(--accent);
+      line-height: 1.5;
+    }
+    p { margin-bottom: 0.8rem; color: var(--ink-secondary); }
+    strong { color: var(--accent-deep); font-weight: 600; }
+    mark.key {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    ul, ol {
+      margin: 0.4rem 0 1rem 1.5rem;
+      color: var(--ink-secondary);
+    }
+    li { margin-bottom: 0.35rem; }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em;
+      background: var(--bg-warm);
+      padding: 0.12rem 0.4rem;
+      border-radius: 4px;
+      color: var(--accent-deep);
+      border: 1px solid var(--rule);
+      font-weight: 500;
+    }
+
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .callout-default {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+    }
+    .callout-warning {
+      background: var(--gold-soft);
+      border-left: 4px solid var(--gold);
+    }
+    .callout-success {
+      background: var(--teal-soft);
+      border-left: 4px solid var(--teal);
+    }
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .callout-default .callout-title { color: var(--accent-deep); }
+    .callout-warning .callout-title { color: var(--gold); }
+    .callout-success .callout-title { color: var(--teal); }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+    .tag {
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: var(--bg-warm);
+      color: var(--slate);
+      border: 1px solid var(--rule);
+      transition: all var(--transition);
+    }
+    .tag:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--rule);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    footer span { color: var(--accent); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      animation: fadeUp 0.5s ease both;
+    }
+    .section:nth-child(1)  { animation-delay: 0.05s; }
+    .section:nth-child(2)  { animation-delay: 0.10s; }
+    .section:nth-child(3)  { animation-delay: 0.15s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section { animation: none; }
+    }
+
+    @media (max-width: 900px) {
+      .page-layout {
+        padding: 0 1rem 3rem;
+      }
+      .section { padding: 1.5rem; }
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+      .navbar-inner { padding: 0.5rem 1rem; }
+      .navbar-link { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 1.25rem; }
+      body { font-size: 15px; }
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      color: var(--slate);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all var(--transition);
+    }
+    .social-link:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent-deep);
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.2rem 0;
+    }
+    .feature-item {
+      padding: 1rem;
+      background: var(--bg-warm);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .feature-title {
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .feature-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="JavaWeb期末复习总结.html" class="navbar-link">JavaWeb</a>
+      <a href="数据库期末复习总结.html" class="navbar-link">数据库</a>
+      <a href="网络241_网络242_考试安排.html" class="navbar-link">考试安排</a>
+      <a href="关于本站.html" class="navbar-link active">关于本站</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-eyebrow">About This Site</div>
+    <h1>关于本站</h1>
+    <p class="hero-subtitle">期末复习助手 &middot; 知识点总结 &middot; 考试资源共享</p>
+  </header>
+
+  <div class="page-layout">
+
+    <section class="section" id="s1">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>本站简介</h2>
+      </div>
+
+      <p>本站致力于为同学们提供期末考试的复习资料和学习资源，旨在帮助大家高效备考、顺利通过考试。</p>
+
+      <p>在这里，你可以找到精心整理的课程知识点总结、核心考点梳理、典型例题解析以及考试安排等实用内容。我们希望能够成为你期末复习路上的得力助手，为你的学习提供有力支持。</p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon">📚</div>
+          <div class="feature-title">知识点总结</div>
+          <div class="feature-desc">系统梳理课程重点，覆盖核心考点</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-title">考点速查</div>
+          <div class="feature-desc">高频考点标注，复习有的放矢</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📅</div>
+          <div class="feature-title">考试安排</div>
+          <div class="feature-desc">清晰呈现考试时间与地点信息</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💡</div>
+          <div class="feature-title">学习建议</div>
+          <div class="feature-desc">提供复习策略与答题技巧</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="s2">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>已收录课程</h2>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">MySQL 数据库</span>
+        <span class="tag">JavaWeb 开发</span>
+        <span class="tag">计算机网络</span>
+      </div>
+
+      <p>本站目前收录了以下课程的期末复习资料：</p>
+
+      <ul>
+        <li><strong>MySQL 数据库</strong>：涵盖数据库系统基础、关系模型、SQL语法、视图索引、事务并发、安全管理、数据库设计与规范化等核心模块</li>
+        <li><strong>JavaWeb 开发</strong>：包含Servlet、JSP、数据库连接、会话管理、MVC模式等重点内容</li>
+        <li><strong>计算机网络</strong>：提供网络241/242班级的考试安排信息</li>
+      </ul>
+
+      <div class="callout callout-success">
+        <div class="callout-title">持续更新</div>
+        我们会根据课程进度和同学们的需求，不断更新和补充新的复习资料。
+      </div>
+    </section>
+
+    <section class="section" id="s3">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>联系与反馈</h2>
+      </div>
+
+      <p>如果你有任何问题、建议或想要添加新的复习资料，欢迎通过以下方式与我们联系：</p>
+
+      <div class="callout callout-default">
+        <div class="callout-title">GitHub Issues</div>
+        <p>访问 <a href="https://github.com/fengyuan404/final-review/issues" target="_blank" style="color:var(--accent); text-decoration:none;">github.com/fengyuan404/final-review/issues</a> 提交你的想法和建议</p>
+      </div>
+
+      <p>无论是发现了内容错误、想要补充知识点，还是有其他改进建议，我们都非常欢迎你的反馈！你的每一条建议都能帮助我们把本站做得更好。</p>
+
+      <div class="social-links">
+        <a href="https://github.com/fengyuan404/final-review" target="_blank" class="social-link">
+          <span>GitHub</span>
+        </a>
+        <a href="https://github.com/fengyuan404/final-review/issues" target="_blank" class="social-link">
+          <span>提交建议</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="s4">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2>使用说明</h2>
+      </div>
+
+      <ol style="counter-reset: item; list-style:none;">
+        <li style="counter-increment: item; position:relative; padding-left:2rem; margin-bottom:0.8rem;">
+          <span style="position:absolute; left:0; top:0; font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700; color:#fff; background:var(--accent); width:1.6rem; height:1.6rem; border-radius:50%; display:flex; align-items:center; justify-content:center;">1</span>
+          <strong>选择课程</strong>：点击顶部导航栏选择你需要复习的课程
+        </li>
+        <li style="counter-increment: item; position:relative; padding-left:2rem; margin-bottom:0.8rem;">
+          <span style="position:absolute; left:0; top:0; font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700; color:#fff; background:var(--accent); width:1.6rem; height:1.6rem; border-radius:50%; display:flex; align-items:center; justify-content:center;">2</span>
+          <strong>浏览内容</strong>：使用侧边栏目录快速跳转到感兴趣的章节
+        </li>
+        <li style="counter-increment: item; position:relative; padding-left:2rem; margin-bottom:0.8rem;">
+          <span style="position:absolute; left:0; top:0; font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700; color:#fff; background:var(--accent); width:1.6rem; height:1.6rem; border-radius:50%; display:flex; align-items:center; justify-content:center;">3</span>
+          <strong>重点标记</strong>：带有 <mark class="key">hot</mark> 标签的内容为高频考点，请重点关注
+        </li>
+        <li style="counter-increment: item; position:relative; padding-left:2rem;">
+          <span style="position:absolute; left:0; top:0; font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700; color:#fff; background:var(--accent); width:1.6rem; height:1.6rem; border-radius:50%; display:flex; align-items:center; justify-content:center;">4</span>
+          <strong>反馈建议</strong>：如有问题或建议，欢迎在GitHub上提交issue
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="s5">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2>免责声明</h2>
+      </div>
+
+      <div class="callout callout-warning">
+        <div class="callout-title">重要提示</div>
+        <p>本站提供的复习资料仅供参考学习使用，不能替代教材和课堂笔记。考试内容以任课教师讲授和教材为准，请同学们务必结合课堂内容进行复习。</p>
+      </div>
+
+      <p>本站内容由学生整理，虽然经过仔细校对，但难免存在疏漏。如有发现错误，请及时通过GitHub Issues反馈，我们会尽快修正。</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>期末复习总结网站 &middot; <span>祝你考试顺利！</span></p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+      
+      if (scrollDirection === 'down' && currentScrollY > 100) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>
