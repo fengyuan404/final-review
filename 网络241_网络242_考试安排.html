@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网络241 / 网络242 考试安排</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg: #faf8f5;
+      --bg-warm: #f5f0ea;
+      --bg-card: #ffffff;
+      --ink: #2c2825;
+      --ink-secondary: #5a534c;
+      --muted: #9a928a;
+      --rule: #e8e2da;
+      --rule-strong: #d4cdc4;
+      --accent: #c2553a;
+      --accent-soft: #e8d4cf;
+      --accent-deep: #a0422e;
+      --teal: #3a8c7c;
+      --teal-soft: #d4eae5;
+      --slate: #4a6670;
+      --slate-soft: #dde8ec;
+      --gold: #b8860b;
+      --gold-soft: #f0e6cc;
+      --code-bg: #2c2825;
+      --code-ink: #e0dbd5;
+      --code-muted: #7a746c;
+      --code-keyword: #c2553a;
+      --code-string: #3a8c7c;
+      --code-comment: #7a746c;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(44,40,37,0.06);
+      --shadow-md: 0 4px 16px rgba(44,40,37,0.08);
+      --shadow-lg: 0 8px 32px rgba(44,40,37,0.1);
+      --shadow-card: 0 1px 0 var(--rule), var(--shadow-md);
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: var(--accent-soft); color: var(--accent-deep); }
+
+    /* ═══════════════════════════ NAVBAR ═══════════════════════════ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(0);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+    }
+    .navbar.hidden {
+      transform: translateY(-100%);
+      box-shadow: none;
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.6rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .navbar-link {
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      transition: all var(--transition);
+      white-space: nowrap;
+      position: relative;
+    }
+    .navbar-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: var(--accent-soft);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+    .navbar-link:hover {
+      color: var(--accent);
+    }
+    .navbar-link:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .navbar-link.active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .navbar-link.active::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ═══════════════════════════ HERO ═══════════════════════════ */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(194,85,58,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(58,140,124,0.04) 0%, transparent 50%),
+        var(--bg);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c2553a' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif SC', 'STSong', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      position: relative;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .hero-meta-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .hero-meta-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════ SECTIONS ═══════════════════════════ */
+    .page-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .content { min-width: 0; }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-card);
+      scroll-margin-top: 4.5rem;
+      transition: box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--teal), var(--gold));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .section:hover::before { opacity: 1; }
+    .section:hover { box-shadow: 0 1px 0 var(--rule-strong), var(--shadow-lg); }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════ TABLES ═══════════════════════════ */
+    .table-wrap {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 600px;
+      margin: 1rem 0;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 500px;
+    }
+    thead {
+      background: var(--bg-warm);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    th {
+      color: var(--ink);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.7rem 1rem;
+      border-bottom: 2px solid var(--rule-strong);
+      white-space: nowrap;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+    }
+    td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      color: var(--ink-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(194,85,58,0.025); }
+
+    .time { color: var(--accent); font-weight: 600; white-space: nowrap; }
+    .course { font-weight: 500; }
+    .class { color: var(--teal); font-weight: 600; white-space: nowrap; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .room { white-space: nowrap; }
+
+    /* ═══════════════════════════ FOOTER ═══════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--rule);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    footer span { color: var(--accent); }
+
+    /* ═══════════════════════════ ANIMATIONS ═══════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      animation: fadeUp 0.5s ease both;
+    }
+    .section:nth-child(1) { animation-delay: 0.05s; }
+    .section:nth-child(2) { animation-delay: 0.10s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section { animation: none; }
+    }
+
+    /* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+    @media (max-width: 900px) {
+      .page-layout { padding: 0 1rem 3rem; }
+      .section { padding: 1.5rem; }
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+      .navbar-inner { padding: 0.5rem 1rem; }
+      .navbar-link { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-meta { gap: 1rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 1.25rem; }
+      body { font-size: 15px; }
+    }
+
+    @media print {
+      .navbar { display: none; }
+      .hero { padding: 2rem 1rem; }
+      .page-layout { padding: 0 1rem 2rem; }
+      .section { break-inside: avoid; page-break-inside: avoid; box-shadow: none; }
+      .section::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="JavaWeb期末复习总结.html" class="navbar-link">JavaWeb</a>
+      <a href="数据库期末复习总结.html" class="navbar-link">数据库</a>
+      <a href="网络241_网络242_考试安排.html" class="navbar-link active">考试安排</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <header class="hero">
+    <div class="hero-eyebrow">Exam Schedule</div>
+    <h1>网络241 / 网络242 考试安排</h1>
+    <p class="hero-subtitle">2025-2026学年第二学期期末考试</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">2</span>
+        <span class="hero-meta-label">班级</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">6</span>
+        <span class="hero-meta-label">课程</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">4</span>
+        <span class="hero-meta-label">考试日</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════ MAIN LAYOUT ═══════════════════════ -->
+  <div class="page-layout">
+    <main class="content">
+
+      <!-- 网络241 -->
+      <section class="section" id="s1">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2>网络241 考试安排</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>场次/时间</th>
+                <th>课程名</th>
+                <th>班级</th>
+                <th>人数</th>
+                <th>教室号</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time">第2场 7月4日 周六 下午13:30-15:30</td>
+                <td class="course">[MYA111004]毛泽东思想和中国特色社会主义理论体系概论</td>
+                <td class="class">网络241</td>
+                <td class="num">45</td>
+                <td class="room">6号楼6203[多媒体教室131]</td>
+              </tr>
+              <tr>
+                <td class="time">第3场 7月4日 周六 下午16:00-18:00</td>
+                <td class="course">[WYA111304]大学英语读写Ⅳ（A班）</td>
+                <td class="class">网络241</td>
+                <td class="num">18</td>
+                <td class="room">7号楼7107[多媒体教室87]</td>
+              </tr>
+              <tr>
+                <td class="time">第3场 7月4日 周六 下午16:00-18:00</td>
+                <td class="course">[WYA111304]大学英语读写Ⅳ（B1班）</td>
+                <td class="class">网络241</td>
+                <td class="num">23</td>
+                <td class="room">11号楼11413[多媒体教室90]</td>
+              </tr>
+              <tr>
+                <td class="time">第13场 7月8日 周三 上午9:00-11:00</td>
+                <td class="course">[SJB111201]路由交换技术</td>
+                <td class="class">网络241</td>
+                <td class="num">45</td>
+                <td class="room">6号楼6123[多媒体教室146]</td>
+              </tr>
+              <tr>
+                <td class="time">第15场 7月8日 周三 下午16:00-18:00</td>
+                <td class="course">[SJB111007]Java Web应用开发</td>
+                <td class="class">网络241</td>
+                <td class="num">45</td>
+                <td class="room">2号楼2116[多媒体教室110]</td>
+              </tr>
+              <tr>
+                <td class="time">第17场 7月9日 周四 下午13:30-15:30</td>
+                <td class="course">[SJB111006]数据库原理及应用</td>
+                <td class="class">网络241</td>
+                <td class="num">45</td>
+                <td class="room">2号楼2116[多媒体教室110]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 网络242 -->
+      <section class="section" id="s2">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2>网络242 考试安排</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>场次/时间</th>
+                <th>课程名</th>
+                <th>班级</th>
+                <th>人数</th>
+                <th>教室号</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time">第2场 7月4日 周六 下午13:30-15:30</td>
+                <td class="course">[MYA111004]毛泽东思想和中国特色社会主义理论体系概论</td>
+                <td class="class">网络242</td>
+                <td class="num">40</td>
+                <td class="room">11号楼11201[多媒体教室90]</td>
+              </tr>
+              <tr>
+                <td class="time">第3场 7月4日 周六 下午16:00-18:00</td>
+                <td class="course">[WYA111304]大学英语读写Ⅳ（A班）</td>
+                <td class="class">网络242</td>
+                <td class="num">13</td>
+                <td class="room">无</td>
+              </tr>
+              <tr>
+                <td class="time">第3场 7月4日 周六 下午16:00-18:00</td>
+                <td class="course">[WYA111304]大学英语读写Ⅳ（B1班）</td>
+                <td class="class">网络242</td>
+                <td class="num">24</td>
+                <td class="room">11号楼11309[多媒体教室90]</td>
+              </tr>
+              <tr>
+                <td class="time">第13场 7月8日 周三 上午9:00-11:00</td>
+                <td class="course">[SJB111201]路由交换技术</td>
+                <td class="class">网络242</td>
+                <td class="num">40</td>
+                <td class="room">11号楼11105[多媒体教室90]</td>
+              </tr>
+              <tr>
+                <td class="time">第15场 7月8日 周三 下午16:00-18:00</td>
+                <td class="course">[SJB111007]Java Web应用开发</td>
+                <td class="class">网络242</td>
+                <td class="num">40</td>
+                <td class="room">11号楼11101[多媒体教室90]</td>
+              </tr>
+              <tr>
+                <td class="time">第17场 7月9日 周四 下午13:30-15:30</td>
+                <td class="course">[SJB111006]数据库原理及应用</td>
+                <td class="class">网络242</td>
+                <td class="num">40</td>
+                <td class="room">11号楼11101[多媒体教室90]</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>整理自《2025-2026学年第二学期期末考试安排表（考生核对版）》 &middot; <span>祝你好运！</span></p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+      
+      if (scrollDirection === 'down' && currentScrollY > 100) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>

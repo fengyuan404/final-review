@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MySQL 数据库期末考试知识点总结</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap');
+
+    :root {
+      --bg: #faf8f5;
+      --bg-warm: #f5f0ea;
+      --bg-card: #ffffff;
+      --ink: #2c2825;
+      --ink-secondary: #5a534c;
+      --muted: #9a928a;
+      --rule: #e8e2da;
+      --rule-strong: #d4cdc4;
+      --accent: #c2553a;
+      --accent-soft: #e8d4cf;
+      --accent-deep: #a0422e;
+      --teal: #3a8c7c;
+      --teal-soft: #d4eae5;
+      --slate: #4a6670;
+      --slate-soft: #dde8ec;
+      --gold: #b8860b;
+      --gold-soft: #f0e6cc;
+      --code-bg: #2c2825;
+      --code-ink: #e0dbd5;
+      --code-muted: #7a746c;
+      --code-keyword: #c2553a;
+      --code-string: #3a8c7c;
+      --code-comment: #7a746c;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 3px rgba(44,40,37,0.06);
+      --shadow-md: 0 4px 16px rgba(44,40,37,0.08);
+      --shadow-lg: 0 8px 32px rgba(44,40,37,0.1);
+      --shadow-card: 0 1px 0 var(--rule), var(--shadow-md);
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection { background: var(--accent-soft); color: var(--accent-deep); }
+
+    /* ═══════════════════════════ NAVBAR ═══════════════════════════ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--rule);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(0);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+    }
+    .navbar.hidden {
+      transform: translateY(-100%);
+      box-shadow: none;
+    }
+    .navbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.6rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .navbar-link {
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      transition: all var(--transition);
+      white-space: nowrap;
+      position: relative;
+    }
+    .navbar-link::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: var(--accent-soft);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+    }
+    .navbar-link:hover {
+      color: var(--accent);
+    }
+    .navbar-link:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .navbar-link.active {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .navbar-link.active::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ═══════════════════════════ HERO ═══════════════════════════ */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(194,85,58,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(58,140,124,0.04) 0%, transparent 50%),
+        var(--bg);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c2553a' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif SC', 'STSong', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      position: relative;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      position: relative;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+    .hero-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .hero-meta-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .hero-meta-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════ TOC SIDEBAR ═══════════════════════════ */
+    .page-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 4.5rem;
+    }
+    .sidebar-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      color: var(--ink-secondary);
+      font-size: 0.82rem;
+      font-weight: 400;
+      transition: all var(--transition);
+      border-left: 2px solid transparent;
+    }
+    .sidebar-link:hover {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-left-color: var(--accent);
+    }
+    .sidebar-link.active {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-left-color: var(--accent);
+    }
+    .sidebar-link .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 1.6rem;
+    }
+
+    /* ═══════════════════════════ SECTIONS ═══════════════════════════ */
+    .content { min-width: 0; }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-card);
+      scroll-margin-top: 4.5rem;
+      transition: box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--teal), var(--gold));
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .section:hover::before { opacity: 1; }
+    .section:hover { box-shadow: 0 1px 0 var(--rule-strong), var(--shadow-lg); }
+
+    .section-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════ TYPOGRAPHY ═══════════════════════════ */
+    h3 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 1.8rem 0 0.6rem;
+      padding-left: 0.9rem;
+      border-left: 3px solid var(--accent);
+      line-height: 1.5;
+    }
+    h4 {
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--slate);
+      margin: 1.2rem 0 0.5rem;
+    }
+    p { margin-bottom: 0.8rem; color: var(--ink-secondary); }
+    strong { color: var(--accent-deep); font-weight: 600; }
+    mark.key {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    ul, ol {
+      margin: 0.4rem 0 1rem 1.5rem;
+      color: var(--ink-secondary);
+    }
+    li { margin-bottom: 0.35rem; }
+
+    /* ═══════════════════════════ CODE ═══════════════════════════ */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82em;
+      background: var(--bg-warm);
+      padding: 0.12rem 0.4rem;
+      border-radius: 4px;
+      color: var(--accent-deep);
+      border: 1px solid var(--rule);
+      font-weight: 500;
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid #3d3833;
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.3rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      position: relative;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.15);
+    }
+    pre::before {
+      content: '';
+      position: absolute;
+      top: 0.6rem;
+      left: 0.7rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff5f56;
+      box-shadow: 14px 0 0 #ffbd2e, 28px 0 0 #27c93f;
+      opacity: 0.6;
+    }
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.78rem;
+      color: var(--code-ink);
+      line-height: 1.7;
+      font-weight: 400;
+      display: block;
+      padding-top: 0.5rem;
+    }
+    pre .kw { color: var(--code-keyword); }
+    pre .str { color: var(--code-string); }
+    pre .cmt { color: var(--code-comment); font-style: italic; }
+
+    /* ═══════════════════════════ TABLES ═══════════════════════════ */
+    .table-wrap {
+      overflow-x: auto;
+      overflow-y: auto;
+      max-height: 600px;
+      margin: 1rem 0;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 500px;
+    }
+    thead {
+      background: var(--bg-warm);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    th {
+      color: var(--ink);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.7rem 1rem;
+      border-bottom: 2px solid var(--rule-strong);
+      white-space: nowrap;
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+    }
+    td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--rule);
+      vertical-align: top;
+      color: var(--ink-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(194,85,58,0.025); }
+
+    /* ═══════════════════════════ CALLOUT ═══════════════════════════ */
+    .callout {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    .callout-default {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+    }
+    .callout-warning {
+      background: var(--gold-soft);
+      border-left: 4px solid var(--gold);
+    }
+    .callout-success {
+      background: var(--teal-soft);
+      border-left: 4px solid var(--teal);
+    }
+    .callout-danger {
+      background: #f5dede;
+      border-left: 4px solid #c2553a;
+    }
+    .callout-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .callout-default .callout-title { color: var(--accent-deep); }
+    .callout-warning .callout-title { color: var(--gold); }
+    .callout-success .callout-title { color: var(--teal); }
+    .callout-danger .callout-title { color: #c2553a; }
+    .callout ul { margin-bottom: 0; }
+
+    /* ═══════════════════════════ STEPS ═══════════════════════════ */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+    .steps > li {
+      position: relative;
+      padding-left: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--ink-secondary);
+    }
+    .steps > li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0.15rem;
+      width: 1.6rem;
+      height: 1.6rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      box-shadow: 0 2px 6px rgba(194,85,58,0.25);
+    }
+    .steps > li::after {
+      content: '';
+      position: absolute;
+      left: 0.78rem;
+      top: 2rem;
+      bottom: -0.8rem;
+      width: 1.5px;
+      background: var(--rule);
+    }
+    .steps > li:last-child::after { display: none; }
+
+    /* ═══════════════════════════ TAGS ═══════════════════════════ */
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.75rem 0;
+    }
+    .tag {
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: var(--bg-warm);
+      color: var(--slate);
+      border: 1px solid var(--rule);
+      transition: all var(--transition);
+    }
+    .tag:hover {
+      background: var(--teal-soft);
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+    .tag.hot {
+      background: var(--accent-soft);
+      color: var(--accent-deep);
+      border-color: var(--accent);
+    }
+
+    /* ═══════════════════════════ FLOW ARROW ═══════════════════════════ */
+    .flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin: 1rem 0;
+      font-size: 0.82rem;
+    }
+    .flow-item {
+      padding: 0.3rem 0.65rem;
+      background: var(--bg-warm);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-sm);
+      color: var(--ink-secondary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+    .flow-arrow {
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+
+    /* ═══════════════════════════ ACID GRID ═══════════════════════════ */
+    .acid-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 1.2rem 0;
+    }
+    .acid-card {
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 0.8rem;
+      text-align: center;
+      background: var(--bg-card);
+      transition: all var(--transition);
+    }
+    .acid-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .acid-letter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .acid-card:nth-child(1) .acid-letter { color: var(--accent); }
+    .acid-card:nth-child(2) .acid-letter { color: var(--teal); }
+    .acid-card:nth-child(3) .acid-letter { color: var(--slate); }
+    .acid-card:nth-child(4) .acid-letter { color: var(--gold); }
+    .acid-name {
+      font-family: 'Noto Serif SC', serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .acid-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════ ER SHAPES ═══════════════════════════ */
+    .er-diagram {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin: 1.5rem 0;
+    }
+    .er-item { text-align: center; }
+    .er-shape {
+      width: 80px;
+      height: 56px;
+      margin: 0 auto 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .er-rect {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+    .er-oval {
+      background: var(--teal);
+      border-radius: 50%;
+      width: 88px;
+    }
+    .er-diamond {
+      background: var(--gold);
+      transform: rotate(45deg);
+      width: 58px;
+      height: 58px;
+    }
+    .er-diamond span {
+      transform: rotate(-45deg);
+      display: block;
+    }
+    .er-label {
+      font-size: 0.82rem;
+      color: var(--ink-secondary);
+    }
+    .er-sublabel {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════ FOOTER ═══════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--rule);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    footer span { color: var(--accent); }
+
+    /* ═══════════════════════════ ANIMATIONS ═══════════════════════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .section {
+      animation: fadeUp 0.5s ease both;
+    }
+    .section:nth-child(1)  { animation-delay: 0.05s; }
+    .section:nth-child(2)  { animation-delay: 0.10s; }
+    .section:nth-child(3)  { animation-delay: 0.15s; }
+    .section:nth-child(4)  { animation-delay: 0.20s; }
+    .section:nth-child(5)  { animation-delay: 0.25s; }
+    .section:nth-child(6)  { animation-delay: 0.30s; }
+    .section:nth-child(7)  { animation-delay: 0.35s; }
+    .section:nth-child(8)  { animation-delay: 0.40s; }
+    .section:nth-child(9)  { animation-delay: 0.45s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section { animation: none; }
+    }
+
+    /* ═══════════════════════════ RESPONSIVE ═══════════════════════════ */
+    @media (max-width: 900px) {
+      .page-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem 3rem;
+      }
+      .sidebar {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .sidebar-nav {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 0.3rem;
+      }
+      .sidebar-link { border-left: none; border-bottom: 1px solid transparent; }
+      .sidebar-link:hover { border-left: none; border-bottom-color: var(--accent); }
+      .section { padding: 1.5rem; }
+      .hero { padding: 3rem 1.5rem 2.5rem; }
+      .acid-grid { grid-template-columns: repeat(2, 1fr); }
+      .navbar-inner { padding: 0.5rem 1rem; }
+      .navbar-title { font-size: 0.85rem; }
+      .navbar-link { padding: 0.4rem 0.75rem; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-meta { gap: 1rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 1.25rem; }
+      body { font-size: 15px; }
+    }
+
+    @media print {
+      .navbar { display: none; }
+      .hero { padding: 2rem 1rem; }
+      .sidebar { display: none; }
+      .page-layout { padding: 0 1rem 2rem; }
+      .section { break-inside: avoid; page-break-inside: avoid; box-shadow: none; }
+      .section::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="JavaWeb期末复习总结.html" class="navbar-link">JavaWeb</a>
+      <a href="数据库期末复习总结.html" class="navbar-link active">数据库</a>
+      <a href="网络241_网络242_考试安排.html" class="navbar-link">考试安排</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <header class="hero">
+    <div class="hero-eyebrow">期末速查手册</div>
+    <h1>MySQL 数据库核心知识点总结</h1>
+    <p class="hero-subtitle">SQL 基础 &middot; 数据查询 &middot; 视图索引 &middot; 事务并发 &middot; 安全管理 &middot; 设计规范化</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">8</span>
+        <span class="hero-meta-label">知识模块</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">20+</span>
+        <span class="hero-meta-label">核心考点</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-num">4</span>
+        <span class="hero-meta-label">必考题型</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════ MAIN LAYOUT ═══════════════════════ -->
+  <div class="page-layout">
+
+    <!-- Sidebar TOC -->
+    <aside class="sidebar">
+      <div class="sidebar-title">目录导航</div>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="#s1"><span class="num">01</span>数据库系统基础</a>
+        <a class="sidebar-link" href="#s2"><span class="num">02</span>关系模型基础</a>
+        <a class="sidebar-link" href="#s3"><span class="num">03</span>SQL基础与表操作</a>
+        <a class="sidebar-link" href="#s4"><span class="num">04</span>数据查询</a>
+        <a class="sidebar-link" href="#s5"><span class="num">05</span>视图与索引</a>
+        <a class="sidebar-link" href="#s6"><span class="num">06</span>安全管理</a>
+        <a class="sidebar-link" href="#s7"><span class="num">07</span>事务与并发控制</a>
+        <a class="sidebar-link" href="#s8"><span class="num">08</span>设计与规范化</a>
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+
+      <!-- S1: 数据库系统基础 -->
+      <section class="section" id="s1">
+        <div class="section-head">
+          <span class="section-num">01</span>
+          <h2>数据库系统基础（第1章）</h2>
+        </div>
+
+        <h3>核心概念</h3>
+        <p><mark class="key">数据库系统（DBS）</mark> = DB（数据库） + DBMS（数据库管理系统） + 应用程序 + DBA（数据库管理员） + 用户 + 软硬件</p>
+        <p><strong>DBA</strong> 核心职责：设计、建立、管理、维护数据库。</p>
+
+        <h3>三级模式两级映像</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>模式层级</th><th>对应数据库对象</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>外模式</strong></td><td><code>视图</code></td><td>用户可见的局部逻辑结构，实现数据隔离</td></tr>
+              <tr><td><strong>模式（逻辑模式）</strong></td><td><code>基本表</code></td><td>全体数据的全局逻辑结构，一个库仅一个</td></tr>
+              <tr><td><strong>内模式（存储/物理模式）</strong></td><td><code>索引</code></td><td>数据的物理存储结构与存取方式</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>主流数据库产品</h3>
+        <div class="tag-row">
+          <span class="tag hot">MySQL</span>
+          <span class="tag">Oracle</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">华为 GaussDB</span>
+          <span class="tag">阿里 OceanBase</span>
+          <span class="tag">腾讯 TDSQL</span>
+        </div>
+      </section>
+
+      <!-- S2: 关系模型基础 -->
+      <section class="section" id="s2">
+        <div class="section-head">
+          <span class="section-num">02</span>
+          <h2>关系模型基础（第2章）</h2>
+        </div>
+
+        <h3>关系五大性质</h3>
+        <ol class="steps">
+          <li>列的分量来自<strong>同一域</strong>，不同属性可同域</li>
+          <li>列的顺序可交换</li>
+          <li>行（元组）的顺序可交换</li>
+          <li><mark class="key">不允许完全相同的元组</mark></li>
+          <li>每个分量必须是<mark class="key">原子数据项</mark>（不可再分）</li>
+        </ol>
+
+        <h3>码（键）</h3>
+        <div class="callout callout-default">
+          <div class="callout-title">码的关系</div>
+          <p><strong>候选码</strong>：能唯一标识元组的属性（组），可有多个。</p>
+          <p><strong>主码（主键）</strong>：从候选码中选定一个，一个关系只有一个。</p>
+          <p>结论：主码必是候选码，候选码不一定是主码。</p>
+        </div>
+
+        <h3>三大完整性约束 <span class="tag hot" style="vertical-align:middle; margin-left:0.5rem; font-size:0.72rem;">必考</span></h3>
+        <div class="callout callout-success">
+          <div class="callout-title">① 实体完整性</div>
+          主码的值不能为空，也不能部分为空。
+        </div>
+        <div class="callout callout-default">
+          <div class="callout-title">② 参照完整性</div>
+          外码取值要么等于被参照表主码的某个值，要么为空（如选课表的学号必须存在于学生表）。
+        </div>
+        <div class="callout callout-warning">
+          <div class="callout-title">③ 用户自定义完整性</div>
+          业务语义约束（如年龄范围、性别限定）。
+        </div>
+      </section>
+
+      <!-- S3: SQL基础与表操作 -->
+      <section class="section" id="s3">
+        <div class="section-head">
+          <span class="section-num">03</span>
+          <h2>SQL基础与表操作（第3-5章）</h2>
+        </div>
+
+        <h3>SQL核心动词分类</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>功能</th><th>动词</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>数据查询</td><td><code>SELECT</code></td></tr>
+              <tr><td>数据定义</td><td><code>CREATE</code>、<code>DROP</code>、<code>ALTER</code></td></tr>
+              <tr><td>数据操纵</td><td><code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code></td></tr>
+              <tr><td>数据控制</td><td><code>GRANT</code>、<code>REVOKE</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>存储引擎</h3>
+        <p>决定数据存储、索引、更新查询的底层机制。</p>
+        <div class="callout callout-danger">
+          <div class="callout-title">注意</div>
+          <strong>Memory引擎</strong>：数据存于内存，数据库重启/崩溃后数据<strong>全部丢失</strong>。
+        </div>
+
+        <h3>常用数据类型</h3>
+        <div class="tag-row">
+          <span class="tag hot">INT — 数值型</span>
+          <span class="tag">CHAR(n) — 定长字符串</span>
+          <span class="tag">VARCHAR(n) — 变长字符串</span>
+          <span class="tag">DATE — 日期型</span>
+        </div>
+        <div class="callout callout-warning">
+          <div class="callout-title">提醒</div>
+          字符串类型 <strong>必须指定长度</strong>：<code>CHAR(n)</code>、<code>VARCHAR(n)</code>
+        </div>
+
+        <h3>表约束（建表必考）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>约束</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>NOT NULL</code></td><td>非空约束</td></tr>
+              <tr><td><code>UNIQUE</code></td><td>唯一，教材规定最多允许一个 NULL（MySQL允许多个，考试以教材为准）</td></tr>
+              <tr><td><code>PRIMARY KEY</code></td><td>主键 = 非空 + 唯一</td></tr>
+              <tr><td><code>FOREIGN KEY</code></td><td>外键，实现参照完整性</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>核心操作语法</h3>
+        <pre><code><span class="cmt">-- 创建表</span>
+<span class="kw">CREATE TABLE</span> 表名 (字段名 类型 约束, ...);
+
+<span class="cmt">-- 修改表结构</span>
+<span class="kw">ALTER TABLE</span> 表名 ...;
+
+<span class="cmt">-- 修改表名</span>
+<span class="kw">ALTER TABLE</span> 旧表名 <span class="kw">RENAME TO</span> 新表名;
+
+<span class="cmt">-- 删除表（结构+数据）</span>
+<span class="kw">DROP TABLE</span> 表名;
+
+<span class="cmt">-- 修改数据</span>
+<span class="kw">UPDATE</span> 表名 <span class="kw">SET</span> 字段名=值 <span class="kw">WHERE</span> 条件;
+
+<span class="cmt">-- 删除数据（仅数据，保留结构）</span>
+<span class="kw">DELETE FROM</span> 表名 <span class="kw">WHERE</span> 条件;</code></pre>
+
+        <div class="callout callout-warning">
+          <div class="callout-title">易混淆区分</div>
+          <code>DELETE</code> 删数据不删表；<code>DROP TABLE</code> 删整表（结构+数据全删）。
+        </div>
+      </section>
+
+      <!-- S4: 数据查询 -->
+      <section class="section" id="s4">
+        <div class="section-head">
+          <span class="section-num">04</span>
+          <h2>数据查询（第6章）—— SQL大题核心</h2>
+        </div>
+
+        <h3>单表查询</h3>
+        <pre><code><span class="kw">SELECT</span> [<span class="kw">DISTINCT</span>] 字段列表 <span class="kw">FROM</span> 表名 <span class="kw">WHERE</span> 条件;</code></pre>
+        <ul>
+          <li><code>DISTINCT</code> 消除重复行</li>
+          <li>逻辑运算符优先级：<code>NOT</code> > <code>AND</code> > <code>OR</code></li>
+          <li>模糊查询：<code>LIKE</code> / <code>NOT LIKE</code></li>
+        </ul>
+
+        <h3>多表连接查询（4种）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>连接类型</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>交叉连接（笛卡尔积）</strong></td><td>无条件拼接，行数=两表行数乘积，列数=两表列数和，无业务意义</td></tr>
+              <tr><td><strong>内连接</strong></td><td>仅保留满足连接条件的匹配行</td></tr>
+              <tr><td><strong>外连接</strong></td><td>保留一方全部行，另一方无匹配补 NULL</td></tr>
+              <tr><td><strong>自然连接</strong></td><td>按同名字段自动匹配的内连接，自动去重列</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout-success">
+          <div class="callout-title">自连接</div>
+          一张表与自身等值连接，常用于层级查询（如查找员工及其上级）。
+        </div>
+
+        <h3>子查询（嵌套查询）</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>类型</th><th>执行方式</th><th>特点</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>非相关子查询</strong></td><td>子查询先执行 <mark class="key">1次</mark></td><td>结果供父查询使用，可独立运行</td></tr>
+              <tr><td><strong>相关子查询</strong></td><td>父查询每遍历一行执行一次</td><td>依赖父查询字段，不可独立运行</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- S5: 视图与索引 -->
+      <section class="section" id="s5">
+        <div class="section-head">
+          <span class="section-num">05</span>
+          <h2>视图与索引（第7章）</h2>
+        </div>
+
+        <h3>视图（View）</h3>
+        <div class="callout callout-default">
+          <div class="callout-title">本质</div>
+          由基本表导出的<strong>虚表</strong>，不存储数据，只保存定义语句。
+        </div>
+        <ul>
+          <li><strong>作用</strong>：隐藏敏感字段，提升数据安全性</li>
+          <li>创建：<code>CREATE VIEW 视图名 AS 查询语句;</code></li>
+        </ul>
+
+        <h3>索引（Index）</h3>
+        <div class="callout callout-success">
+          <div class="callout-title">核心</div>
+          对应<mark class="key">内模式</mark>，占用物理存储空间。以<strong>空间换时间</strong>提升查询效率。
+        </div>
+        <ul>
+          <li>创建：<code>CREATE INDEX 索引名 ON 表名(字段名);</code></li>
+          <li><strong>并非越多越好</strong>：每个索引占空间，且降低增删改效率（需同步维护索引）</li>
+        </ul>
+      </section>
+
+      <!-- S6: 安全管理 -->
+      <section class="section" id="s6">
+        <div class="section-head">
+          <span class="section-num">06</span>
+          <h2>数据库安全管理（第8章）</h2>
+        </div>
+
+        <h3>安全性定义</h3>
+        <p>保护数据库，防止非法使用造成的数据泄露、更改或破坏。</p>
+
+        <h3>MySQL权限系统表（层级从高到低）</h3>
+        <div class="flow-row">
+          <span class="flow-item">mysql.user</span><span class="flow-arrow">&gt;</span>
+          <span class="flow-item">mysql.db</span><span class="flow-arrow">&gt;</span>
+          <span class="flow-item">mysql.tables_priv</span><span class="flow-arrow">&gt;</span>
+          <span class="flow-item">mysql.columns_priv</span><span class="flow-arrow">&gt;</span>
+          <span class="flow-item">mysql.procs_priv</span>
+        </div>
+        <p style="text-align:center; font-size:0.82rem; color:var(--muted); margin-top:-0.5rem;">全局级别 → 数据库级别 → 表级别 → 字段级别 → 存储过程/函数级别</p>
+
+        <h3>用户与权限操作 <span class="tag hot" style="vertical-align:middle; margin-left:0.5rem; font-size:0.72rem;">必考代码</span></h3>
+        <pre><code><span class="cmt">-- 创建用户</span>
+<span class="kw">CREATE USER</span> <span class="str">'用户名'@'主机名'</span> <span class="kw">IDENTIFIED BY</span> <span class="str">'密码'</span>;
+
+<span class="cmt">-- 删除用户</span>
+<span class="kw">DROP USER</span> <span class="str">'用户名'@'主机名'</span>;
+
+<span class="cmt">-- 授予权限</span>
+<span class="kw">GRANT</span> 权限名 <span class="kw">ON</span> 对象 <span class="kw">TO</span> 用户;
+
+<span class="cmt">-- 回收权限</span>
+<span class="kw">REVOKE</span> 权限名 <span class="kw">ON</span> 对象 <span class="kw">FROM</span> 用户;</code></pre>
+
+        <h3>角色管理</h3>
+        <p><strong>角色</strong> = 权限的集合，用于批量管理。</p>
+        <pre><code><span class="kw">CREATE ROLE</span> 角色名;
+<span class="kw">SET DEFAULT ROLE</span> 角色名 <span class="kw">TO</span> 用户名;
+<span class="kw">DROP ROLE</span> 角色名;</code></pre>
+      </section>
+
+      <!-- S7: 事务与并发控制 -->
+      <section class="section" id="s7">
+        <div class="section-head">
+          <span class="section-num">07</span>
+          <h2>事务与并发控制（高频简答+理解）</h2>
+        </div>
+
+        <h3>事务定义</h3>
+        <p>由一条或多条 SQL 组成的逻辑执行单元，是业务的最小操作集合。</p>
+
+        <h3>事务控制语句</h3>
+        <pre><code><span class="kw">START TRANSACTION</span>;  <span class="cmt">-- 开启</span>
+<span class="kw">COMMIT</span>;             <span class="cmt">-- 提交（永久生效）</span>
+<span class="kw">ROLLBACK</span>;           <span class="cmt">-- 回滚（撤销未提交修改）</span></code></pre>
+
+        <h3>ACID 四大特性 <span class="tag hot" style="vertical-align:middle; margin-left:0.5rem; font-size:0.72rem;">每年必考简答</span></h3>
+        <div class="acid-grid">
+          <div class="acid-card">
+            <div class="acid-letter">A</div>
+            <div class="acid-name">原子性</div>
+            <div class="acid-desc">事务中操作不可分割，要么全执行，要么全不执行</div>
+          </div>
+          <div class="acid-card">
+            <div class="acid-letter">C</div>
+            <div class="acid-name">一致性</div>
+            <div class="acid-desc">事务前后数据库从一个一致状态转到另一个一致状态</div>
+          </div>
+          <div class="acid-card">
+            <div class="acid-letter">I</div>
+            <div class="acid-name">隔离性</div>
+            <div class="acid-desc">并发事务互不干扰</div>
+          </div>
+          <div class="acid-card">
+            <div class="acid-letter">D</div>
+            <div class="acid-name">持久性</div>
+            <div class="acid-desc">提交后修改永久生效，故障不影响</div>
+          </div>
+        </div>
+
+        <h3>隔离级别（由低到高）</h3>
+        <div class="flow-row">
+          <span class="flow-item">READ UNCOMMITTED</span><span class="flow-arrow">&lt;</span>
+          <span class="flow-item">READ COMMITTED</span><span class="flow-arrow">&lt;</span>
+          <span class="flow-item">REPEATABLE READ</span><span class="flow-arrow">&lt;</span>
+          <span class="flow-item">SERIALIZABLE</span>
+        </div>
+        <p style="text-align:center; font-size:0.82rem; color:var(--muted); margin-top:-0.5rem;">读未提交 → 读已提交 → 可重复读 → 串行化</p>
+        <p>实现方式：<strong>封锁机制</strong>。</p>
+
+        <h3>封锁机制</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>锁类型</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>排他锁（X锁/写锁）</strong></td><td>加锁后当前事务可读可写，其他事务不能加任何锁</td></tr>
+              <tr><td><strong>共享锁（S锁/读锁）</strong></td><td>加锁后当前事务仅可读，其他事务可加S锁但不能加X锁</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout-default">
+          <div class="callout-title">三级封锁协议</div>
+          可同时解决丢失更新、脏读、不可重复读问题。
+        </div>
+
+        <h3>死锁与活锁</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>类型</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>死锁</strong></td><td>两个事务互相等待对方释放锁，永远阻塞</td></tr>
+              <tr><td><strong>活锁</strong></td><td>事务长期等待锁，始终无法获取</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- S8: 数据库设计与规范化 -->
+      <section class="section" id="s8">
+        <div class="section-head">
+          <span class="section-num">08</span>
+          <h2>数据库设计与规范化（第11-13章，大题考点）</h2>
+        </div>
+
+        <h3>数据库设计概述</h3>
+        <p>核心工作：<strong>结构设计</strong> + <strong>行为设计</strong></p>
+        <div class="tag-row">
+          <span class="tag">直观设计法</span>
+          <span class="tag">规范设计法</span>
+          <span class="tag">计算机辅助设计法</span>
+          <span class="tag">AI辅助设计法</span>
+        </div>
+
+        <h3>关系模式规范化</h3>
+        <ul>
+          <li><strong>目的</strong>：解决数据冗余、插入异常、删除异常、更新异常</li>
+          <li><strong>规范化定义</strong>：将低一级范式分解为高一级范式集合</li>
+          <li><strong>基本原则</strong>：<mark class="key">一事一地</mark>——一个关系只描述一个实体或一种联系</li>
+        </ul>
+
+        <h3>E-R模型（概念设计，画图大题）</h3>
+        <p><strong>E-R图三要素</strong>：</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>要素</th><th>图形</th><th>说明</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>实体型</strong></td><td>矩形</td><td>实体对象</td></tr>
+              <tr><td><strong>属性</strong></td><td>椭圆形</td><td>实体特征</td></tr>
+              <tr><td><strong>联系</strong></td><td>菱形</td><td>实体间关联关系</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="er-diagram">
+          <div class="er-item">
+            <div class="er-shape er-rect">实体</div>
+            <div class="er-label">矩形</div>
+          </div>
+          <div class="er-item">
+            <div class="er-shape er-oval">属性</div>
+            <div class="er-label">椭圆形</div>
+          </div>
+          <div class="er-item">
+            <div class="er-shape er-diamond"><span>联系</span></div>
+            <div class="er-label">菱形</div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-title">E-R图合并冲突</div>
+          最常见<mark class="key">命名冲突</mark>（同名异义、异名同义），需统一修正。
+        </div>
+
+        <h3>范式判断（大题）</h3>
+        <p>根据函数依赖判断关系模式属于第几范式（1NF、2NF、3NF、BCNF等），考试会给出依赖关系要求分析。</p>
+      </section>
+
+      <!-- 复习策略 -->
+      <section class="section" id="s9">
+        <div class="section-head">
+          <span class="section-num">TIP</span>
+          <h2>复习策略提示</h2>
+        </div>
+
+        <ol class="steps">
+          <li><strong>题型分布</strong>：选择/判断（概念）、简答（ACID、三大完整性、三级模式等）、SQL代码（建表、查询、权限）、设计大题（ER图、范式）</li>
+          <li><strong>答题规范</strong>：教材理论与MySQL实际行为可能存在差异（如 UNIQUE 空值数量），<mark class="key">答题一律以教材为准</mark></li>
+          <li><strong>全面覆盖</strong>：AB卷随机，不可偏废，重点掌握课堂例题</li>
+        </ol>
+
+        <div class="callout callout-success">
+          <div class="callout-title">核心速记</div>
+          <ul>
+            <li>三级模式：外模式→视图、模式→基本表、内模式→索引</li>
+            <li>三大完整性：实体（主码非空）、参照（外码匹配）、用户自定义</li>
+            <li>ACID：原子性、一致性、隔离性、持久性</li>
+            <li>DELETE 删数据，DROP TABLE 删整表</li>
+            <li>索引：空间换时间，不是越多越好</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>MySQL 数据库期末考试知识点总结 &middot; <span>祝你考试顺利！</span></p>
+  </footer>
+
+  <script>
+    // 侧边栏滚动高亮
+    const sections = document.querySelectorAll('.section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      sidebarLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    });
+
+    // 导航栏滚动隐藏
+    const navbar = document.getElementById('navbar');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function updateNavbar() {
+      const currentScrollY = window.scrollY;
+      const scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+      
+      if (scrollDirection === 'down' && currentScrollY > 100) {
+        navbar.classList.add('hidden');
+      } else {
+        navbar.classList.remove('hidden');
+      }
+      
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>
