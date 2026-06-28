@@ -90,21 +90,24 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
     }
 
     .card {
       background: var(--bg-card);
       border: 1px solid var(--rule);
       border-radius: var(--radius-lg);
-      padding: 2rem;
+      padding: 1.5rem;
       box-shadow: var(--shadow-md);
       transition: all var(--transition);
       text-decoration: none;
       color: inherit;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card::before {
@@ -128,36 +131,18 @@
       opacity: 1;
     }
 
-    .card-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
     .card-title {
       font-family: 'Noto Serif SC', serif;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--ink);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
     }
 
     .card-desc {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: var(--muted);
-      line-height: 1.6;
-    }
-
-    .card-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.7rem;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--accent);
-      margin-top: 1rem;
-      padding: 0.3rem 0.6rem;
-      background: var(--accent-soft);
-      border-radius: 4px;
+      line-height: 1.5;
     }
 
     .footer {
@@ -182,6 +167,10 @@
     .card:nth-child(2) { animation-delay: 0.10s; }
     .card:nth-child(3) { animation-delay: 0.15s; }
     .card:nth-child(4) { animation-delay: 0.20s; }
+    .card:nth-child(5) { animation-delay: 0.25s; }
+    .card:nth-child(6) { animation-delay: 0.30s; }
+    .card:nth-child(7) { animation-delay: 0.35s; }
+    .card:nth-child(8) { animation-delay: 0.40s; }
 
     @media (max-width: 480px) {
       .container { padding: 2.5rem 1rem 4rem; }
@@ -200,31 +189,23 @@
 
     <div class="card-grid">
       <a href="JavaWeb期末复习总结.html" class="card">
-        <div class="card-icon">💻</div>
         <div class="card-title">JavaWeb</div>
-        <div class="card-desc">Servlet、JSP、Spring 框架等核心知识点总结</div>
-        <div class="card-meta">Web 开发</div>
+        <div class="card-desc">Servlet、JSP、Spring 框架等核心知识点</div>
       </a>
 
       <a href="数据库期末复习总结.html" class="card">
-        <div class="card-icon">🗄️</div>
         <div class="card-title">数据库</div>
-        <div class="card-desc">MySQL 基础、SQL 语句、事务与索引详解</div>
-        <div class="card-meta">MySQL</div>
+        <div class="card-desc">MySQL 基础、SQL 语句、事务与索引</div>
       </a>
 
       <a href="网络241_网络242_考试安排.html" class="card">
-        <div class="card-icon">📅</div>
         <div class="card-title">考试安排</div>
         <div class="card-desc">网络课程 241/242 班考试时间与地点</div>
-        <div class="card-meta">考试信息</div>
       </a>
 
       <a href="关于本站.html" class="card">
-        <div class="card-icon">ℹ️</div>
         <div class="card-title">关于本站</div>
         <div class="card-desc">网站简介、使用说明及联系方式</div>
-        <div class="card-meta">About</div>
       </a>
     </div>
 
